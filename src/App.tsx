@@ -18,7 +18,7 @@ export default function App() {
       <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900/60 dark:selection:text-blue-200">
         <Navbar onOpenResume={() => setIsResumeOpen(true)} />
         <main className="flex-1">
-          <Hero onOpenResume={() => setIsResumeOpen(true)} />
+          <Hero />
           <About />
           <Skills />
           <Projects />

@@ -16,6 +16,8 @@ const NAV_LINKS = [
   { name: 'Contact', href: '#contact' },
 ];
 
+const DESKTOP_LINKS = NAV_LINKS.filter(({ name }) => ['Projects', 'About', 'Skills'].includes(name));
+
 export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,11 +39,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${
         scrolled
-          ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-2xs'
-          : 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-xs border-b border-slate-200/50 dark:border-slate-800/50'
+          ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80'
+          : 'bg-white dark:bg-slate-950 border-b border-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Zone 1: Bikram Shrestha Logo */}
           <a
@@ -49,12 +51,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             className="hover:opacity-90 transition-opacity focus:outline-hidden"
             aria-label="Bikram Shrestha Home"
           >
-            <BikramLogo size="md" />
+            <BikramLogo size="lg" />
           </a>
 
           {/* Zone 2: Navigation Links (Desktop) */}
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
-            {NAV_LINKS.map((link) => (
+            {DESKTOP_LINKS.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -65,44 +67,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             ))}
           </nav>
 
-          {/* Zone 3: Actions & Socials (Desktop) */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href={profileData.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub profile"
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-
-            <a
-              href={profileData.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn profile"
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-
-            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
-
+          {/* Actions (Desktop) */}
+          <div className="hidden md:flex items-center gap-4">
             <button
               onClick={onOpenResume}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+              className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-colors cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Resume</span>
+              Resume
             </button>
 
             <button
               onClick={toggleTheme}
               type="button"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors cursor-pointer"
+              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-md transition-colors cursor-pointer"
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-amber-400" />
@@ -110,6 +89,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                 <Moon className="w-4 h-4 text-slate-700" />
               )}
             </button>
+
+            <a
+              href={`mailto:${profileData.socials.email}`}
+              className="inline-flex items-center justify-center rounded-md bg-slate-950 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+            >
+              Let’s talk
+            </a>
           </div>
 
           {/* Mobile Right Controls: Theme Toggle & Hamburger */}
